@@ -1,1 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Cantina di Zach</title>
+<style>
+  :root{
+    --wine:#68434a;
+    --wine-dark:#4d3036;
+    --olive:#8d9872;
+    --cream:#f6f2eb;
+    --paper:#fcfaf6;
+    --ink:#3b3531;
+    --muted:#817970;
+    --line:#e4ddd3;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 20% 0%, rgba(125,135,80,.08), transparent 30%),
+      var(--cream);
+    font-family:Georgia,"Times New Roman",serif;
+  }
+  header{
+    text-align:center;
+    color:#fbf8f3;
+    background:var(--wine);
+    padding:48px 20px 44px;
+    border-bottom:2px solid var(--olive);
+  }
+  h1{
+    margin:0;
+    font-size:42px;
+    font-weight:400;
+    letter-spacing:1.5px;
+  }
+  header p{
+    margin:9px 0 0;
+    color:#e8dfd0;
+    font-size:16px;
+    font-style:italic;
+    letter-spacing:.6px;
+  }
+  .container{max-width:1040px;margin:38px auto;padding:0 22px}
+  .card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    box-shadow:0 5px 20px rgba(65,48,38,.045);
+    border-radius:4px;
+  }
+  .submit-card{padding:26px;margin-bottom:32px}
+  .section-title{
+    margin:0 0 18px;
+    font-size:25px;
+    font-weight:500;
+  }
+  .section-title:after{
+    content:"";
+    display:block;
+    width:42px;
+    height:2px;
+    background:var(--olive);
+    margin-top:9px;
+  }
+  form{
+    display:grid;
+    grid-template-columns:1fr 160px 150px;
+    gap:13px;
+    align-items:end;
+  }
+  label{
+    display:block;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:12px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.8px;
+    margin-bottom:7px;
+  }
+  input,select,button{
+    width:100%;
+    padding:12px 13px;
+    border:1px solid #cfc3b2;
+    border-radius:2px;
+    font:inherit;
+  }
+  input:focus,select:focus{outline:2px solid rgba(125,135,80,.28);border-color:var(--olive)}
+  button{
+    cursor:pointer;
+    border:none;
+    background:var(--wine);
+    color:#fff;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-weight:700;
+  }
+  button:hover{filter:brightness(1.08)}
+  .photo-label{
+    display:inline-block;
+    margin-top:15px;
+    color:var(--wine);
+    cursor:pointer;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:13px;
+    font-weight:700;
+  }
+  #photos{display:none}
+  .preview{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .preview img{width:76px;height:76px;object-fit:cover;border:1px solid var(--line)}
+  .toolbar{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:15px;
+  }
+  .toolbar h2{margin:0;font-size:28px;font-weight:500}
+  .toolbar select{width:190px;background:var(--paper)}
+  .wine-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
+    gap:20px;
+  }
+  .wine{
+    overflow:hidden;
+    background:var(--paper);
+    border:1px solid var(--line);
+    box-shadow:0 6px 20px rgba(58,34,20,.07);
+  }
+  .wine-photo{
+    height:225px;
+    background:#e6ddcd;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--muted);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:13px;
+  }
+  .wine-photo img{width:100%;height:100%;object-fit:cover}
+  .wine-body{padding:18px}
+  .wine-name{font-size:22px;line-height:1.2;font-weight:600;margin-bottom:11px}
+  .rank-row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .rank{
+    display:inline-block;
+    padding:6px 10px;
+    background:#e9e3d5;
+    color:var(--wine);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-size:13px;
+    font-weight:800;
+    border-left:3px solid var(--olive);
+  }
+  .actions{display:flex;gap:8px;margin-top:15px}
+  .actions button{width:auto;padding:8px 12px;font-size:12px}
+  .edit-btn{background:#8d9872}
+  .delete-btn{background:#f1ece5;color:var(--wine)}
+  .empty{
+    grid-column:1/-1;
+    padding:48px 20px;
+    text-align:center;
+    background:var(--paper);
+    border:1px solid var(--line);
+    color:var(--muted);
+    font-style:italic;
+  }
+  @media(max-width:700px){
+    header{padding:42px 15px}
+    h1{font-size:34px}
+    header:before,header:after{display:none}
+    form{grid-template-columns:1fr}
+    .toolbar{align-items:stretch;flex-direction:column;gap:12px}
+    .toolbar select{width:100%}
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>La Cantina di Zach</h1>
+  <p>Zach's Italian Wine Collection</p>
+</header>
+
+<main class="container">
+  <section class="submit-card card">
+    <h2 class="section-title">Add a Wine</h2>
+    <form id="wineForm">
+      <div>
+        <label for="name">Wine Name</label>
+        <input id="name" type="text" placeholder="e.g. 2019 Barolo" required>
+      </div>
+      <div>
+        <label for="ranking">Score</label>
+        <input id="ranking" type="number" min="0" max="100" step="0.1" placeholder="95" required>
+      </div>
+      <button type="submit">+ Add Wine</button>
+    </form>
+    <label class="photo-label" for="photos">Add Photos</label>
+    <input id="photos" type="file" accept="image/*" multiple>
+    <div id="preview" class="preview"></div>
+  </section>
+
+  <div class="toolbar">
+    <h2>Wine Rankings</h2>
+    <select id="sort">
+      <option value="high">Highest Score</option>
+      <option value="low">Lowest Score</option>
+      <option value="new">Newest</option>
+    </select>
+  </div>
+
+  <section id="wineGrid" class="wine-grid"></section>
+</main>
+
+<script>
+let wines=JSON.parse(localStorage.getItem("zachWines")||"[]");
+let selectedPhotos=[];
+const form=document.getElementById("wineForm");
+const photos=document.getElementById("photos");
+const preview=document.getElementById("preview");
+const grid=document.getElementById("wineGrid");
+const sort=document.getElementById("sort");
+
+photos.addEventListener("change",()=>{
+  selectedPhotos=[]; preview.innerHTML="";
+  [...photos.files].forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=e=>{
+      selectedPhotos.push(e.target.result);
+      const img=document.createElement("img");
+      img.src=e.target.result;
+      preview.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  });
+});
+
+form.addEventListener("submit",e=>{
+  e.preventDefault();
+  wines.push({
+    id:Date.now(),
+    name:document.getElementById("name").value.trim(),
+    ranking:Number(document.getElementById("ranking").value),
+    photos:[...selectedPhotos],
+    created:Date.now()
+  });
+  save();
+  form.reset(); photos.value=""; selectedPhotos=[]; preview.innerHTML="";
+  render();
+});
+sort.addEventListener("change",render);
+
+function save(){localStorage.setItem("zachWines",JSON.stringify(wines))}
+
+function editWine(id){
+  const wine=wines.find(w=>w.id===id);
+  if(!wine)return;
+  const name=prompt("Wine name:",wine.name);
+  if(name===null)return;
+  const score=prompt("Score (0-100):",wine.ranking);
+  if(score===null)return;
+  const value=Number(score);
+  if(!name.trim()||Number.isNaN(value)||value<0||value>100){
+    alert("Please enter a wine name and a score from 0 to 100.");
+    return;
+  }
+  wine.name=name.trim(); wine.ranking=value;
+  save(); render();
+}
+
+function deleteWine(id){
+  const wine=wines.find(w=>w.id===id);
+  if(wine&&confirm('Delete "'+wine.name+'"?')){
+    wines=wines.filter(w=>w.id!==id);
+    save(); render();
+  }
+}
+
+function render(){
+  let list=[...wines];
+  if(sort.value==="high")list.sort((a,b)=>b.ranking-a.ranking);
+  if(sort.value==="low")list.sort((a,b)=>a.ranking-b.ranking);
+  if(sort.value==="new")list.sort((a,b)=>b.created-a.created);
+
+  if(!list.length){
+    grid.innerHTML='<div class="empty">No wines yet. Add the first bottle to the cellar.</div>';
+    return;
+  }
+  grid.innerHTML=list.map((wine,index)=>`
+    <article class="wine">
+      <div class="wine-photo">
+        ${wine.photos&&wine.photos.length
+          ?'<img src="'+wine.photos[0]+'" alt="'+escapeHtml(wine.name)+'">'
+          :'No photo added'}
+      </div>
+      <div class="wine-body">
+        <div class="wine-name">${escapeHtml(wine.name)}</div>
+        <div class="rank-row">
+          <span class="rank">#${index+1} · ${wine.ranking}/100</span>
+        </div>
+        <div class="actions">
+          <button class="edit-btn" type="button" onclick="editWine(${wine.id})">Edit</button>
+          <button class="delete-btn" type="button" onclick="deleteWine(${wine.id})">Delete</button>
+        </div>
+      </div>
+    </article>
+  `).join("");
+}
+
+function escapeHtml(text){
+  return text.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+}
+render();
+</script>
+</body>
+</html>
 
