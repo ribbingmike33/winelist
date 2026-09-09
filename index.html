@@ -54,7 +54,7 @@ header p{position:relative;margin:12px 0 0;color:#dce5de;font-family:Georgia,"Ti
 .section-title:after{content:"";display:block;width:42px;height:2px;background:var(--red);margin-top:13px}
 form{display:grid;grid-template-columns:minmax(0,1fr) 115px 145px 145px 130px;gap:14px;align-items:end}
 label{display:block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.35px;margin:0 0 8px;color:#595953}
-input,select{width:100%;max-width:100%;min-width:0;height:48px;padding:11px 13px;border:1px solid #c9c2b6;border-radius:2px;background:var(--white);color:var(--ink);box-shadow:inset 0 1px 1px rgba(0,0,0,.025)}
+input,select{width:100%;max-width:100%;min-width:0;box-sizing:border-box;height:48px;padding:11px 13px;border:1px solid #c9c2b6;border-radius:2px;background:var(--white);color:var(--ink);box-shadow:inset 0 1px 1px rgba(0,0,0,.025)}
 input::placeholder{color:#aaa69e}
 input:focus,select:focus{outline:2px solid rgba(22,63,43,.12);border-color:var(--green)}
 button{cursor:pointer}
@@ -77,7 +77,10 @@ form>button:disabled{opacity:.55;cursor:wait}
 .rank-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px}.rank{padding:7px 10px;background:#e8eee9;color:var(--green);font-size:12px;font-weight:800;border-left:3px solid var(--red)}
 .actions{display:flex;gap:8px;margin-top:15px}.actions button{width:auto;min-height:34px;padding:7px 12px;font-size:10px;font-weight:800;letter-spacing:.75px;text-transform:uppercase}.edit-btn{background:var(--green);color:#fff;border:1px solid var(--green)}.edit-btn:hover{background:var(--green-dark)}.delete-btn{background:transparent;color:var(--red);border:1px solid #d4c1c1}.delete-btn:hover{background:#f5e9e8}
 .empty{grid-column:1/-1;padding:60px 20px;text-align:center;background:var(--paper);border:1px solid var(--line);color:var(--muted);font-family:Georgia,"Times New Roman",serif;font-style:italic}
-.leaderboard{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-bottom:36px}.leader-card{position:relative;overflow:hidden;background:var(--paper);border:1px solid var(--line);padding:38px 28px 34px;text-align:center;box-shadow:var(--shadow)}.leader-card:before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--green)}.leader-card:last-child:before{background:var(--red)}.leader-name{font-family:Georgia,"Times New Roman",serif;font-size:32px;color:var(--green-dark);margin-bottom:13px}.leader-count{font-size:54px;font-weight:700;line-height:1;color:var(--green)}.leader-card:last-child .leader-count{color:var(--red)}.leader-label{margin-top:10px;color:var(--muted);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.3px}
+.leaderboard{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-bottom:36px} .leader-wines{margin-top:24px;border-top:1px solid var(--line);text-align:left}.leader-wine{padding:11px 0;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:3px}.leader-wine-name{font-family:Georgia,"Times New Roman",serif;font-size:16px;color:var(--green-dark)}.leader-wine-meta{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px}.leader-empty{margin-top:22px;padding-top:18px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);font-style:italic}.leader-card{position:relative;overflow:hidden;background:var(--paper);border:1px solid var(--line);padding:38px 28px 34px;text-align:center;box-shadow:var(--shadow)}.leader-card:before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--green)}.leader-card:last-child:before{background:var(--red)}.leader-name{font-family:Georgia,"Times New Roman",serif;font-size:32px;color:var(--green-dark);margin-bottom:13px}.leader-count{font-size:54px;font-weight:700;line-height:1;color:var(--green)}.leader-card:last-child .leader-count{color:var(--red)}.leader-label{margin-top:10px;color:var(--muted);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.3px}
+#wineDate{display:block;width:100%;max-width:100%;min-width:0;box-sizing:border-box;-webkit-appearance:none;appearance:none;padding-right:10px;font-size:16px}
+#wineDate::-webkit-date-and-time-value{text-align:left}
+#wineDate::-webkit-calendar-picker-indicator{margin:0}
 @media(max-width:850px){form{grid-template-columns:minmax(0,1fr) 110px 135px 135px 125px}.submit-card{padding:28px 25px}}
 @media(max-width:700px){header{padding:43px 18px 40px}h1{font-size:34px;line-height:1.12}header p{font-size:14px;letter-spacing:1px}.container{padding:0 15px 55px}.tabs{margin-bottom:30px}.tab{flex:1;width:auto;min-height:57px;padding:14px 8px;font-size:11px;letter-spacing:.7px}.tab:after{left:8px;right:8px}.submit-card{padding:24px 18px 21px;margin-bottom:32px}form{grid-template-columns:1fr;gap:14px}.section-title{font-size:28px;margin-bottom:24px}form>button{margin-top:2px}.photo-tools{margin-top:16px;padding-top:16px}.photo-btn{flex:1}.toolbar{align-items:stretch;flex-direction:column;gap:12px;margin-bottom:15px}.toolbar h2{font-size:28px}.toolbar select{width:100%}.wine-grid{grid-template-columns:1fr;gap:16px}.wine-photo{height:255px}.leaderboard{grid-template-columns:1fr;gap:14px}.leader-card{padding:32px 24px}.leader-name{font-size:29px}}
 </style>
@@ -295,18 +298,27 @@ form.addEventListener("submit",async e=>{
 });
 
 function renderLeaderboard(){
-  const counts={Zach:0,Yeags:0};
-  wines.forEach(w=>{
-    const who=w.logged_by;
-    if(who in counts)counts[who]++;
-  });
-  leaderboard.innerHTML=["Zach","Yeags"].map(name=>`
-    <article class="leader-card">
-      <div class="leader-name">${name}</div>
-      <div class="leader-count">${counts[name]}</div>
-      <div class="leader-label">Wines logged</div>
-    </article>
-  `).join("");
+  const people=["Zach","Yeags"];
+  leaderboard.innerHTML=people.map(name=>{
+    const logged=wines
+      .filter(w=>String(w.logged_by||"").toLowerCase()===name.toLowerCase())
+      .sort((a,b)=>new Date(b.wine_date)-new Date(a.wine_date));
+    const list=logged.length
+      ? `<div class="leader-wines">${logged.map(w=>`
+          <div class="leader-wine">
+            <span class="leader-wine-name">${escapeHtml(w.name)}</span>
+            <span class="leader-wine-meta">${Number(w.score).toFixed(Number(w.score)%1?1:0)} · ${formatDate(w.wine_date)}</span>
+          </div>`).join("")}</div>`
+      : '<div class="leader-empty">No wines logged yet.</div>';
+    return `
+      <article class="leader-card">
+        <div class="leader-name">${name}</div>
+        <div class="leader-count">${logged.length}</div>
+        <div class="leader-label">Wines logged</div>
+        ${list}
+      </article>
+    `;
+  }).join("");
 }
 
 function showTab(tab){
